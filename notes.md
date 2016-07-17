@@ -1,4 +1,11 @@
-# How to build
+# Prerequisites
+
+* Docker Engine
+* Docker Compose
+
+# How to build the container
+
+It is not necessary to build the container, if you just want to run it.
 
 * The container tag in the docker-compose.yml file should be set to the OHDSI WebAPI release number.
 * The Dockerfile WEBAPI_WAR argument should be set to the WebAPI version for the required WebAPI release.
