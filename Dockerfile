@@ -63,6 +63,7 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # install the bash shell deploy script that supervisord will run whenever the container is started
 COPY deploy-script.sh /usr/local/tomcat/bin/
+RUN chmod +x /usr/local/tomcat/bin/deploy-script.sh
 
 # run supervisord to execute the deploy script (which also starts the tomcat server)
 CMD ["/usr/bin/supervisord"]
