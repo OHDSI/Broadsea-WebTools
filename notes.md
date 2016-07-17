@@ -22,6 +22,11 @@ See <https://github.com/OHDSI/Broadsea> for more information.
 ```
 docker-compose up -d
 
+# How to view the container status
+
+```
+docker-compose ps
+
 # How to stop and remove the container
 
 ```
