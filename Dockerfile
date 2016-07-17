@@ -4,6 +4,11 @@ MAINTAINER Lee Evans - www.ltscomputingllc.com
 
 # OHDSI WebAPI and web applications running in a Tomcat 7 server on Java JRE 8
 
+# the WEBAPI_WAR argument is defaulted here to the WEBAPI war file for the required WebAPI release
+# optionally override the war file url when building this container using: --build-arg WEBAPI_WAR=<webapi war file name>
+ARG WEBAPI_WAR=WebAPI-1.0.0-20160715.201600-518.war
+ENV WEBAPI_RELEASE=1.2.1
+
 # add a Tomcat server management web UI 'admin' user with default 'abc123' password!
 COPY tomcat-users.xml /usr/local/tomcat/conf/
 
@@ -20,9 +25,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /usr/local/tomcat/webapps
 
 # deploy the OHDSI WebAPI war file from the OHDSI CI Nexus repository
-# the WEBAPI_WAR_URL argument is defaulted here to the WEBAPI war file for release 1.1.1.
-# optionally override the war file url in the build using: --build-arg WEBAPI_WAR_URL=<url to webapi war file>
-ARG WEBAPI_WAR_URL=http://repo.ohdsi.org:8085/nexus/service/local/repositories/snapshots/content/org/ohdsi/WebAPI/1.0.0-SNAPSHOT/WebAPI-1.0.0-20160708.211956-515.war
+ENV WEBAPI_WAR_URL=http://repo.ohdsi.org:8085/nexus/service/local/repositories/snapshots/content/org/ohdsi/WebAPI/1.0.0-SNAPSHOT/$WEBAPI_WAR
+
 RUN wget $WEBAPI_WAR_URL \
 	&& mv /usr/local/tomcat/webapps/WebAPI*.war /usr/local/tomcat/webapps/WebAPI.war
 
