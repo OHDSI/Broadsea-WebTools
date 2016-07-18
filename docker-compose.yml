@@ -4,7 +4,7 @@ services:
 
   broadsea-webtools:
     build: .
-    image: ohdsi/broadsea-webtools:1.2.1
+    image: ohdsi/broadsea-webtools
     ports:
       - "8080:8080"
     volumes:
