@@ -6,8 +6,8 @@ MAINTAINER Lee Evans - www.ltscomputingllc.com
 
 # the WEBAPI_WAR argument is defaulted here to the WEBAPI war file for the required WebAPI release
 # optionally override the war file url when building this container using: --build-arg WEBAPI_WAR=<webapi war file name>
-ARG WEBAPI_WAR=WebAPI-1.0.0-20160717.153556-519.war
-ENV WEBAPI_RELEASE=1.2.1
+ARG WEBAPI_WAR=WebAPI-1.0.0-20160818.185300-566.war
+ENV WEBAPI_RELEASE=1.3.0
 
 # add a Tomcat server management web UI 'admin' user with default 'abc123' password!
 COPY tomcat-users.xml /usr/local/tomcat/conf/
@@ -31,10 +31,10 @@ RUN wget $WEBAPI_WAR_URL \
 	&& mv /usr/local/tomcat/webapps/WebAPI*.war /usr/local/tomcat/webapps/WebAPI.war
 
 # deploy latest released OHDSI Atlas web application
-RUN wget https://github.com/OHDSI/Atlas/archive/master.zip \
-        && unzip /usr/local/tomcat/webapps/master.zip \
-	&& mv /usr/local/tomcat/webapps/Atlas-master /usr/local/tomcat/webapps/atlas \
-	&& rm -f master.zip
+RUN wget https://github.com/OHDSI/Atlas/archive/released.zip \
+        && unzip /usr/local/tomcat/webapps/released.zip \
+	&& mv /usr/local/tomcat/webapps/Atlas-released /usr/local/tomcat/webapps/atlas \
+	&& rm -f released.zip
 
 # deploy latest released OHDSI Penelope web application
 RUN wget https://github.com/OHDSI/Penelope/archive/master.zip \
