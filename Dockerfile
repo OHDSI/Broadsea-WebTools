@@ -6,8 +6,8 @@ MAINTAINER Lee Evans - www.ltscomputingllc.com
 
 # the WEBAPI_WAR argument is defaulted here to the WEBAPI war file for the required WebAPI release
 # optionally override the war file url when building this container using: --build-arg WEBAPI_WAR=<webapi war file name>
-ARG WEBAPI_WAR=WebAPI-1.0.0-20160818.185300-566.war
-ENV WEBAPI_RELEASE=1.3.0
+ARG WEBAPI_WAR=WebAPI-1.0.0-20160826.215443-570.war
+ENV WEBAPI_RELEASE=1.3.1
 
 # add a Tomcat server management web UI 'admin' user with default 'abc123' password!
 COPY tomcat-users.xml /usr/local/tomcat/conf/
