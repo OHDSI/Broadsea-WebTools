@@ -10,11 +10,9 @@ perl -i -pe "BEGIN{undef $/;} s|http://localhost:8080|"$WEBAPI_URL"|g" /usr/loca
 # update the Penelope configuration URL of the WebAPI
 perl -i -pe "BEGIN{undef $/;} s|http://localhost:8080|"$WEBAPI_URL"|g" /usr/local/tomcat/webapps/penelope/web/js/app.js
 
-# update the Calypso configuration URL of the WebAPI
-perl -i -pe "BEGIN{undef $/;} s|http://localhost:8080|"$WEBAPI_URL"|g" /usr/local/tomcat/webapps/calypso/js/config.js
-
 # load any jdbc drivers in the docker host volume mapped directory into the tomcat library
 cp /tmp/drivers/*jdbc*.jar /usr/local/tomcat/lib
+cp /tmp/drivers/*JDBC*.jar /usr/local/tomcat/lib
 
 # if datasources.json exists in docker host volume mapped directory load it
 # and the Achilles reports zip files, replacing the demo synpuf1k achilles reports
