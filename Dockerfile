@@ -7,7 +7,7 @@ MAINTAINER Lee Evans - www.ltscomputingllc.com
 # the WEBAPI_WAR argument is defaulted here to the WEBAPI war file for the required WebAPI release
 # optionally override the war file url when building this container using: --build-arg WEBAPI_WAR=<webapi war file name>
 ARG WEBAPI_WAR=WebAPI-1.0.0.war
-ENV WEBAPI_RELEASE=2.1.1
+ENV WEBAPI_RELEASE=2.2.0
 
 # add a Tomcat server management web UI 'admin' user with default 'abc123' password!
 COPY tomcat-users.xml /usr/local/tomcat/conf/
@@ -42,18 +42,14 @@ RUN wget https://github.com/OHDSI/Penelope/archive/master.zip \
 	&& mv /usr/local/tomcat/webapps/Penelope-master /usr/local/tomcat/webapps/penelope \
 	&& rm -f master.zip
 
-# deploy demo SynPUF 1k simulated patients Achilles report data as an Atlas data source
-RUN mkdir -p /usr/local/tomcat/webapps/atlas/data
-COPY datasources.json /usr/local/tomcat/webapps/atlas/data/
-COPY achilles-synpuf-1k.zip /usr/local/tomcat/webapps/atlas/data/
-RUN unzip /usr/local/tomcat/webapps/atlas/data/achilles-synpuf-1k.zip -d /usr/local/tomcat/webapps/atlas/data/ \
-	&& rm -f /usr/local/tomcat/webapps/atlas/data/achilles-synpuf-1k.zip
-
-# create directories for optional jdbc drivers, achilles data source reports and log files
-RUN mkdir -p /tmp/drivers /tmp/achilles-data-reports /var/log/supervisor
+# create directories for optional jdbc drivers and the log files
+RUN mkdir -p /tmp/drivers /var/log/supervisor
 
 # install supervisord configuration file
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# install Atlas local configuration file
+COPY config-local.js /usr/local/tomcat/webapps/atlas/js/
 
 # install the bash shell deploy script that supervisord will run whenever the container is started
 COPY deploy-script.sh /usr/local/tomcat/bin/
