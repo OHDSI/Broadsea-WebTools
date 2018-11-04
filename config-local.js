@@ -1,9 +1,6 @@
 define([], function () {
 	var configLocal = {};
 
-	// clearing local storage otherwise source cache will obscure the override settings
-	localStorage.clear();
-
 	// WebAPI
 	configLocal.api = {
 		name: 'OHDSI',
