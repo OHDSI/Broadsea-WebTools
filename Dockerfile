@@ -64,4 +64,4 @@ COPY deploy-script.sh /usr/local/tomcat/bin/
 RUN chmod +x /usr/local/tomcat/bin/deploy-script.sh
 
 # call the deploy-script.sh (which copies in jdbc drivers also starts the tomcat server)
-CMD ["sh", "-c", "/usr/local/tomcat/bin/deploy-script.sh"]
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
