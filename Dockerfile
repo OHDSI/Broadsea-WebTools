@@ -13,11 +13,10 @@ ARG WEBAPI_WAR=WebAPI-1.0.0.war
 # add a Tomcat server management web UI 'admin' user with default 'abc123' password!
 COPY tomcat-users.xml /usr/local/tomcat/conf/
 
-# install linux utilities and supervisor daemon
+# install linux utilities
 RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     unzip \
-    supervisor \
     build-essential \
     nodejs \
     curl \
@@ -55,17 +54,14 @@ WORKDIR /usr/local/tomcat/webapps/atlas
 RUN npm run build
 
 # create directories for optional jdbc drivers and the log files
-RUN mkdir -p /tmp/drivers /var/log/supervisor
-
-# install supervisord configuration file
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN mkdir -p /tmp/drivers
 
 # install Atlas local configuration file
 COPY config-local.js /usr/local/tomcat/webapps/atlas/js/
 
-# install the bash shell deploy script that supervisord will run whenever the container is started
+# install the bash shell deploy script will run when the container is started
 COPY deploy-script.sh /usr/local/tomcat/bin/
 RUN chmod +x /usr/local/tomcat/bin/deploy-script.sh
 
-# run supervisord to execute the deploy script (which also starts the tomcat server)
-CMD ["/usr/bin/supervisord"]
+# call the deploy-script.sh (which copies in jdbc drivers also starts the tomcat server)
+CMD ["/usr/local/tomcat/bin/deploy-script.sh"]
