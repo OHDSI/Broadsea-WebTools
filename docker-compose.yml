@@ -4,12 +4,12 @@ services:
 
   broadsea-webtools:
     build: .
-    image: scivm/broadsea-webtools
+    image: ohdsi/broadsea-webtools
     ports:
       - "8080:8080"
     volumes:
      - .:/tmp/drivers/:ro
-       # - ./config-local.js:/usr/local/tomcat/webapps/atlas/js/config-local.js:ro
+     - ./config-local.js:/usr/local/tomcat/webapps/atlas/js/config-local.js:ro
     environment:
       - datasource_driverClassName=org.postgresql.Driver
       - datasource_url=jdbc:postgresql://192.168.1.8:5432/secret-database-name
