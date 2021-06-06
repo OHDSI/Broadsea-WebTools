@@ -1,14 +1,14 @@
-FROM tomcat
+FROM tomcat:9.0.46-jdk8-openjdk-buster
 
 MAINTAINER Lee Evans - www.ltscomputingllc.com
 
 # OHDSI WebAPI and ATLAS web application running in Tomcat
 
 # set the WEBAPI_RELEASE environment variable within the Docker container
-ENV WEBAPI_RELEASE=2.8.0
+ENV WEBAPI_RELEASE=2.9.0
 
 # optionally override the war file url when building this container using: --build-arg WEBAPI_WAR=<webapi war file name>
-ARG WEBAPI_WAR=WebAPI-2.8.0.war
+ARG WEBAPI_WAR=WebAPI-2.9.0.war
 
 # install linux utilities and supervisor daemon
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -37,7 +37,7 @@ RUN npm install -g npm
 WORKDIR /usr/local/tomcat/webapps
 
 # deploy the released OHDSI WebAPI war file from the OHDSI CI Nexus repository
-ENV WEBAPI_WAR_URL=http://repo.ohdsi.org:8085/nexus/service/local/repositories/releases/content/org/ohdsi/WebAPI/$WEBAPI_RELEASE/$WEBAPI_WAR
+ENV WEBAPI_WAR_URL=https://repo.ohdsi.org/nexus/repository/releases/org/ohdsi/WebAPI/$WEBAPI_RELEASE/$WEBAPI_WAR
 RUN wget $WEBAPI_WAR_URL \
     && mv /usr/local/tomcat/webapps/WebAPI*.war /usr/local/tomcat/webapps/WebAPI.war
 
