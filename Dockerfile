@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git-core \
     && rm -rf /var/lib/apt/lists/*
 
-# install npm and upgrade it to the latest version
+# install npm and upgrade it to 16.6.1 version
 WORKDIR ~
 RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh \
     && chmod +x nodesource_setup.sh \
@@ -29,7 +29,9 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh \
 RUN apt-get update && apt-get install -y --no-install-recommends \
     npm \
     && rm -rf /var/lib/apt/lists/*
-RUN npm install -g npm
+
+RUN npm install -g n
+RUN n 16.6.1
 
 # deploy the OHDSI WEBAPI and OHDSI ATLAS web application to the Tomcat server
 
