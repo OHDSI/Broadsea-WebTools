@@ -5,10 +5,10 @@ MAINTAINER Lee Evans - www.ltscomputingllc.com
 # OHDSI WebAPI and ATLAS web application running in Tomcat
 
 # set the WEBAPI_RELEASE environment variable within the Docker container
-ENV WEBAPI_RELEASE=2.9.0
+ENV WEBAPI_RELEASE=2.11.1
 
 # optionally override the war file url when building this container using: --build-arg WEBAPI_WAR=<webapi war file name>
-ARG WEBAPI_WAR=WebAPI-2.9.0.war
+ARG WEBAPI_WAR=WebAPI-2.11.1.war
 
 # install linux utilities and supervisor daemon
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -23,13 +23,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # install specific npm version for this build
 WORKDIR ~
-RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh \
+RUN curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh \
     && chmod +x nodesource_setup.sh \
     && bash nodesource_setup.sh
 RUN apt-get update && apt-get install -y --no-install-recommends \
     npm \
     && rm -rf /var/lib/apt/lists/*
-RUN npm install -g npm@6.1.0
+RUN npm install -g npm@7
 
 # deploy the OHDSI WEBAPI and OHDSI ATLAS web application to the Tomcat server
 
