@@ -5,10 +5,10 @@ MAINTAINER Lee Evans - www.ltscomputingllc.com
 # OHDSI WebAPI and ATLAS web application running in Tomcat
 
 # set the WEBAPI_RELEASE environment variable within the Docker container
-ENV WEBAPI_RELEASE=2.11.1
+ENV WEBAPI_RELEASE=2.12.0
 
 # optionally override the war file url when building this container using: --build-arg WEBAPI_WAR=<webapi war file name>
-ARG WEBAPI_WAR=WebAPI-2.11.1.war
+ARG WEBAPI_WAR=WebAPI-2.12.0.war
 
 # install linux utilities and supervisor daemon
 RUN apt-get update && apt-get install -y --no-install-recommends \
